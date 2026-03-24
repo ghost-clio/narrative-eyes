@@ -58,11 +58,11 @@ const PANELS = [
     description: 'what twitter is talking about right now'
   },
   {
-    id: 'douyin',
-    icon: '🐉',
-    title: 'DOUYIN 抖音',
-    special: 'douyin',
-    description: 'CN trends crossing over — 12-24h before global'
+    id: 'polymarket',
+    icon: '🎰',
+    title: 'POLYMARKET',
+    special: 'polymarket',
+    description: 'what people are betting money on right now'
   },
   {
     id: 'culture',
@@ -241,21 +241,23 @@ async function fetchXTrends() {
   return items.slice(0, 25);
 }
 
-// Douyin Trends — from GitHub Actions cached JSON
-async function fetchDouyinTrends() {
-  const url = 'https://raw.githubusercontent.com/ghost-clio/narrative/main/data/douyin-trends.json';
-  const resp = await fetch(url + '?t=' + Date.now(), { signal: AbortSignal.timeout(10000) });
-  const data = await resp.json();
-  if (!data.trends?.length) return [];
+// Polymarket — top markets by 24h volume (no auth, CORS enabled)
+async function fetchPolymarket() {
+  const resp = await fetch('https://gamma-api.polymarket.com/markets?closed=false&order=volume24hr&ascending=false&limit=20', {
+    signal: AbortSignal.timeout(10000)
+  });
+  const markets = await resp.json();
 
-  const updated = data.updated ? new Date(data.updated) : new Date();
-  return data.trends.map(t => ({
-    title: `${t.topic_cn} — ${t.topic_en}`,
-    link: `https://www.douyin.com/search/${encodeURIComponent(t.topic_cn)}`,
-    source: '抖音热搜',
-    meta: t.context || '',
-    date: updated,
-  }));
+  return markets.map(m => {
+    const vol = parseFloat(m.volume24hr || 0);
+    const volStr = vol >= 1000000 ? `$${(vol/1000000).toFixed(1)}M` : `$${(vol/1000).toFixed(0)}K`;
+    return {
+      title: m.question,
+      link: `https://polymarket.com/event/${m.slug || m.conditionId}`,
+      source: volStr + ' vol',
+      date: new Date(m.startDate || m.createdAt || Date.now()),
+    };
+  });
 }
 
 // ── CORE RSS FETCHER ────────────────────────────
@@ -395,8 +397,8 @@ async function loadPanel(panel) {
       return;
     }
 
-    if (panel.special === 'douyin') {
-      const items = await fetchDouyinTrends();
+    if (panel.special === 'polymarket') {
+      const items = await fetchPolymarket();
       renderItems(items, feedEl, countEl, panel.id);
       return;
     }
