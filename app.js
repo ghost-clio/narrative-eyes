@@ -80,15 +80,11 @@ const PANELS = [
     description: 'normie viral — pup energy'
   },
   {
-    id: 'money',
-    icon: '💰',
-    title: 'MONEY MOVES',
-    feeds: [
-      { name: 'TechCrunch Venture', url: 'https://techcrunch.com/category/venture/feed/' },
-      { name: 'Crunchbase', url: 'https://news.crunchbase.com/feed/' },
-      { name: 'r/WallStreetBets Rising', url: 'https://www.reddit.com/r/wallstreetbets/rising.rss?limit=15' },
-    ],
-    description: 'funding, bets, where capital is flowing'
+    id: 'pumpportal',
+    icon: '🚀',
+    title: 'PUMP PORTAL',
+    special: 'pumpportal',
+    description: 'top volume tokens right now — live websocket'
   },
 ];
 
@@ -268,6 +264,98 @@ async function fetchPolymarket() {
     });
 }
 
+// PumpPortal — live top volume tokens via WebSocket
+// Accumulates trades, shows rolling top tokens by volume
+const pumpPortalState = {
+  tokens: {},  // mint -> { symbol, volume, trades, lastPrice, lastTrade }
+  ws: null,
+  connected: false,
+};
+
+function initPumpPortalWS() {
+  if (pumpPortalState.ws) return;
+  try {
+    const ws = new WebSocket('wss://pumpportal.fun/api/data');
+    pumpPortalState.ws = ws;
+
+    ws.onopen = () => {
+      pumpPortalState.connected = true;
+      // Subscribe to all trades
+      ws.send(JSON.stringify({ method: 'subscribeTokenTrade', keys: ['allTrades'] }));
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (!data.mint || !data.txType) return;
+
+        const mint = data.mint;
+        const solAmount = data.solAmount || 0;
+
+        if (!pumpPortalState.tokens[mint]) {
+          pumpPortalState.tokens[mint] = {
+            symbol: data.symbol || mint.slice(0, 6),
+            name: data.name || data.symbol || mint.slice(0, 8),
+            volume: 0,
+            trades: 0,
+            lastPrice: 0,
+            lastTrade: Date.now(),
+            mint,
+          };
+        }
+
+        const t = pumpPortalState.tokens[mint];
+        t.volume += solAmount;
+        t.trades++;
+        t.lastTrade = Date.now();
+        if (data.marketCapSol) t.mcapSol = data.marketCapSol;
+        if (data.newTokenBalance !== undefined) t.lastPrice = data.newTokenBalance;
+      } catch(e) {}
+    };
+
+    ws.onclose = () => {
+      pumpPortalState.connected = false;
+      pumpPortalState.ws = null;
+      // Reconnect after 5s
+      setTimeout(initPumpPortalWS, 5000);
+    };
+
+    ws.onerror = () => {
+      ws.close();
+    };
+  } catch(e) {
+    console.error('PumpPortal WS error:', e);
+  }
+}
+
+function getPumpPortalItems() {
+  const now = Date.now();
+  const WINDOW = 60 * 60 * 1000; // 1h rolling window
+
+  // Prune old tokens (no trades in 1h)
+  for (const [mint, t] of Object.entries(pumpPortalState.tokens)) {
+    if (now - t.lastTrade > WINDOW) delete pumpPortalState.tokens[mint];
+  }
+
+  // Sort by volume descending
+  const sorted = Object.values(pumpPortalState.tokens)
+    .sort((a, b) => b.volume - a.volume)
+    .slice(0, 25);
+
+  return sorted.map(t => {
+    const volStr = t.volume >= 1000 ? `${(t.volume/1000).toFixed(1)}K SOL` :
+                   t.volume >= 1 ? `${t.volume.toFixed(1)} SOL` :
+                   `${t.volume.toFixed(3)} SOL`;
+    const mcapStr = t.mcapSol ? ` · ${t.mcapSol.toFixed(0)} SOL mcap` : '';
+    return {
+      title: `${t.symbol}`,
+      link: `https://pump.fun/coin/${t.mint}`,
+      source: `${volStr} · ${t.trades} trades${mcapStr}`,
+      date: new Date(t.lastTrade),
+    };
+  });
+}
+
 // ── CORE RSS FETCHER ────────────────────────────
 
 function timeAgo(date) {
@@ -404,6 +492,21 @@ async function loadPanel(panel) {
     if (panel.special === 'polymarket') {
       const items = await fetchPolymarket();
       renderItems(items, feedEl, countEl, panel.id);
+      return;
+    }
+
+    if (panel.special === 'pumpportal') {
+      initPumpPortalWS(); // idempotent — only connects once
+      const items = getPumpPortalItems();
+      if (items.length === 0 && pumpPortalState.connected) {
+        feedEl.innerHTML = '<div class="panel-loading"><span class="spinner"></span>Collecting trades...</div>';
+        countEl.textContent = '⚡';
+      } else if (items.length === 0) {
+        feedEl.innerHTML = '<div class="panel-loading"><span class="spinner"></span>Connecting to PumpPortal...</div>';
+        countEl.textContent = '—';
+      } else {
+        renderItems(items, feedEl, countEl, panel.id);
+      }
       return;
     }
 
