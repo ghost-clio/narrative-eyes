@@ -267,27 +267,35 @@ async function fetchPolymarket() {
 
 // Pump.fun — top volume tokens via REST API
 async function fetchPumpTopVolume() {
-  const url = 'https://frontend-api-v3.pump.fun/coins/currently-live?limit=25&offset=0&sort=volume&order=DESC&includeNsfw=false';
+  // Fetch more to have enough after filtering
+  const url = 'https://frontend-api-v3.pump.fun/coins/currently-live?limit=50&offset=0&sort=volume&order=DESC&includeNsfw=false';
   let coins;
   try {
     const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
     coins = await resp.json();
   } catch(e) {
-    // Try via proxy
     const proxied = await fetchViaProxy(url);
     coins = JSON.parse(proxied);
   }
 
-  return coins.map((c, i) => {
+  const now = Date.now();
+  const DAY = 24 * 60 * 60 * 1000;
+
+  // Filter to tokens created in last 24h only
+  coins = coins.filter(c => c.created_timestamp && (now - c.created_timestamp) < DAY);
+
+  return coins.slice(0, 25).map((c, i) => {
     const mcap = c.usd_market_cap || 0;
     const mcapStr = mcap >= 1000000 ? `$${(mcap/1000000).toFixed(1)}M` :
                     mcap >= 1000 ? `$${(mcap/1000).toFixed(0)}K` :
                     `$${mcap.toFixed(0)}`;
+    const ageH = (now - c.created_timestamp) / 3600000;
+    const ageStr = ageH < 1 ? `${Math.floor(ageH * 60)}m old` : `${ageH.toFixed(1)}h old`;
     return {
       title: `${c.symbol} — ${c.name}`,
       link: `https://pump.fun/coin/${c.mint}`,
-      source: `#${i+1} · ${mcapStr} mcap`,
-      date: new Date(), // use now — these are live top volume, not historical
+      source: `#${i+1} · ${mcapStr} mcap · ${ageStr}`,
+      date: new Date(),
     };
   });
 }
