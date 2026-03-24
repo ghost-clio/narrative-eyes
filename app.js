@@ -66,7 +66,7 @@ const PANELS = [
 ];
 
 function gnews(query, days) {
-  return `https://news.google.com/rss/search?q=${encodeURIComponent(query)}+when:${days}d&hl=en-US&gl=US&ceid=US:en`;
+  return `https://news.google.com/rss/search?q=${encodeURIComponent(query)}+when:${days}d&hl=en-US&gl=US&ceid=US:en&geo=US&cr=countryUS`;
 }
 
 function timeAgo(date) {
