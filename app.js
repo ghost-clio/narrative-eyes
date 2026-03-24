@@ -68,16 +68,8 @@ const PANELS = [
     id: 'culture',
     icon: '🌊',
     title: 'VIRAL',
-    feeds: [
-      { name: 'Reddit Rising', url: 'https://www.reddit.com/r/all/rising.rss?limit=15' },
-      { name: 'r/nextfuckinglevel', url: 'https://www.reddit.com/r/nextfuckinglevel/rising.rss?limit=10' },
-      { name: 'r/MadeMeSmile', url: 'https://www.reddit.com/r/MadeMeSmile/rising.rss?limit=10' },
-      { name: 'r/PublicFreakout', url: 'https://www.reddit.com/r/PublicFreakout/rising.rss?limit=10' },
-      { name: 'r/aww', url: 'https://www.reddit.com/r/aww/rising.rss?limit=10' },
-      { name: 'r/OutOfTheLoop', url: 'https://www.reddit.com/r/OutOfTheLoop/hot.rss?limit=8' },
-      { name: 'Know Your Meme', url: 'https://knowyourmeme.com/newsfeed.rss' },
-    ],
-    description: 'normie viral — pup energy'
+    special: 'viral',
+    description: 'fastest rising posts by velocity — engagement per minute'
   },
   {
     id: 'pumpportal',
@@ -298,6 +290,63 @@ async function fetchPumpTopVolume() {
   });
 }
 
+// Viral — Reddit rising sorted by engagement velocity (score+comments per minute)
+async function fetchViral() {
+  const subs = ['all', 'nextfuckinglevel', 'PublicFreakout', 'MadeMeSmile', 'interestingasfuck', 'OutOfTheLoop'];
+  const results = await Promise.allSettled(
+    subs.map(async sub => {
+      const url = `https://www.reddit.com/r/${sub}/rising.json?limit=15`;
+      const proxied = await fetchViaProxy(url);
+      const data = JSON.parse(proxied);
+      return data.data?.children?.map(c => c.data) || [];
+    })
+  );
+
+  let posts = [];
+  results.forEach(r => {
+    if (r.status === 'fulfilled') posts = posts.concat(r.value);
+  });
+
+  const now = Date.now() / 1000;
+
+  // Calculate velocity: (score + comments*2) / age_in_minutes
+  // Comments weighted 2x because they indicate deeper engagement
+  posts = posts.map(p => {
+    const ageMin = Math.max(1, (now - p.created_utc) / 60);
+    const engagement = (p.score || 0) + (p.num_comments || 0) * 2;
+    const velocity = engagement / ageMin;
+    return { ...p, velocity, ageMin };
+  });
+
+  // Sort by velocity descending
+  posts.sort((a, b) => b.velocity - a.velocity);
+
+  // Dedupe by title
+  const seen = new Set();
+  posts = posts.filter(p => {
+    const key = p.title.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 50);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  return posts.slice(0, 25).map(p => {
+    const velStr = p.velocity >= 100 ? `🔥 ${p.velocity.toFixed(0)}/min` :
+                   p.velocity >= 10 ? `⚡ ${p.velocity.toFixed(1)}/min` :
+                   `${p.velocity.toFixed(1)}/min`;
+    const ageStr = p.ageMin < 60 ? `${Math.floor(p.ageMin)}m old` :
+                   `${(p.ageMin/60).toFixed(1)}h old`;
+    return {
+      title: p.title,
+      link: `https://reddit.com${p.permalink}`,
+      source: `r/${p.subreddit}`,
+      badge: velStr,
+      meta: `${p.score}↑ · ${p.num_comments} comments · ${ageStr}`,
+      date: new Date(p.created_utc * 1000),
+    };
+  });
+}
+
 // ── CORE RSS FETCHER ────────────────────────────
 
 function timeAgo(date) {
@@ -433,6 +482,12 @@ async function loadPanel(panel) {
 
     if (panel.special === 'polymarket') {
       const items = await fetchPolymarket();
+      renderItems(items, feedEl, countEl, panel.id);
+      return;
+    }
+
+    if (panel.special === 'viral') {
+      const items = await fetchViral();
       renderItems(items, feedEl, countEl, panel.id);
       return;
     }
