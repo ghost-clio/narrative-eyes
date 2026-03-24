@@ -82,9 +82,9 @@ const PANELS = [
   {
     id: 'pumpportal',
     icon: '🚀',
-    title: 'PUMP PORTAL',
+    title: 'PUMP.FUN TOP VOL',
     special: 'pumpportal',
-    description: 'top volume tokens right now — live websocket'
+    description: 'highest volume tokens on pump.fun right now'
   },
 ];
 
@@ -242,10 +242,17 @@ async function fetchXTrends() {
 
 // Polymarket — top markets by 24h volume (no auth, CORS enabled)
 async function fetchPolymarket() {
-  const resp = await fetch('https://gamma-api.polymarket.com/markets?closed=false&order=volume24hr&ascending=false&limit=20', {
-    signal: AbortSignal.timeout(10000)
-  });
-  const markets = await resp.json();
+  const url = 'https://gamma-api.polymarket.com/markets?closed=false&order=volume24hr&ascending=false&limit=20';
+  let markets;
+  try {
+    // Try direct first (might work with CORS)
+    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    markets = await resp.json();
+  } catch(e) {
+    // Fall back to proxy
+    const proxied = await fetchViaProxy(url);
+    markets = JSON.parse(proxied);
+  }
 
   // Filter out sports game lines — keep the signal, not the spreads
   const skipPatterns = /^(Lakers|Celtics|Warriors|Pistons|Pacers|Rockets|Bulls|Spurs|Heat|Magic|Knicks|Nets|Suns|Mavs|Nuggets|Thunder|Clippers|Kings|Grizzlies|Pelicans|Raptors|Hawks|Hornets|Cavaliers|Wizards|Bucks|Timberwolves|Trail Blazers|Jazz|76ers)\s+vs\./i;
@@ -264,94 +271,29 @@ async function fetchPolymarket() {
     });
 }
 
-// PumpPortal — live top volume tokens via WebSocket
-// Accumulates trades, shows rolling top tokens by volume
-const pumpPortalState = {
-  tokens: {},  // mint -> { symbol, volume, trades, lastPrice, lastTrade }
-  ws: null,
-  connected: false,
-};
-
-function initPumpPortalWS() {
-  if (pumpPortalState.ws) return;
+// Pump.fun — top volume tokens via REST API
+async function fetchPumpTopVolume() {
+  const url = 'https://frontend-api-v3.pump.fun/coins/currently-live?limit=25&offset=0&sort=volume&order=DESC&includeNsfw=false';
+  let coins;
   try {
-    const ws = new WebSocket('wss://pumpportal.fun/api/data');
-    pumpPortalState.ws = ws;
-
-    ws.onopen = () => {
-      pumpPortalState.connected = true;
-      // Subscribe to all trades
-      ws.send(JSON.stringify({ method: 'subscribeTokenTrade', keys: ['allTrades'] }));
-    };
-
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (!data.mint || !data.txType) return;
-
-        const mint = data.mint;
-        const solAmount = data.solAmount || 0;
-
-        if (!pumpPortalState.tokens[mint]) {
-          pumpPortalState.tokens[mint] = {
-            symbol: data.symbol || mint.slice(0, 6),
-            name: data.name || data.symbol || mint.slice(0, 8),
-            volume: 0,
-            trades: 0,
-            lastPrice: 0,
-            lastTrade: Date.now(),
-            mint,
-          };
-        }
-
-        const t = pumpPortalState.tokens[mint];
-        t.volume += solAmount;
-        t.trades++;
-        t.lastTrade = Date.now();
-        if (data.marketCapSol) t.mcapSol = data.marketCapSol;
-        if (data.newTokenBalance !== undefined) t.lastPrice = data.newTokenBalance;
-      } catch(e) {}
-    };
-
-    ws.onclose = () => {
-      pumpPortalState.connected = false;
-      pumpPortalState.ws = null;
-      // Reconnect after 5s
-      setTimeout(initPumpPortalWS, 5000);
-    };
-
-    ws.onerror = () => {
-      ws.close();
-    };
+    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    coins = await resp.json();
   } catch(e) {
-    console.error('PumpPortal WS error:', e);
-  }
-}
-
-function getPumpPortalItems() {
-  const now = Date.now();
-  const WINDOW = 60 * 60 * 1000; // 1h rolling window
-
-  // Prune old tokens (no trades in 1h)
-  for (const [mint, t] of Object.entries(pumpPortalState.tokens)) {
-    if (now - t.lastTrade > WINDOW) delete pumpPortalState.tokens[mint];
+    // Try via proxy
+    const proxied = await fetchViaProxy(url);
+    coins = JSON.parse(proxied);
   }
 
-  // Sort by volume descending
-  const sorted = Object.values(pumpPortalState.tokens)
-    .sort((a, b) => b.volume - a.volume)
-    .slice(0, 25);
-
-  return sorted.map(t => {
-    const volStr = t.volume >= 1000 ? `${(t.volume/1000).toFixed(1)}K SOL` :
-                   t.volume >= 1 ? `${t.volume.toFixed(1)} SOL` :
-                   `${t.volume.toFixed(3)} SOL`;
-    const mcapStr = t.mcapSol ? ` · ${t.mcapSol.toFixed(0)} SOL mcap` : '';
+  return coins.map(c => {
+    const mcap = c.usd_market_cap || 0;
+    const mcapStr = mcap >= 1000000 ? `$${(mcap/1000000).toFixed(1)}M` :
+                    mcap >= 1000 ? `$${(mcap/1000).toFixed(0)}K` :
+                    `$${mcap.toFixed(0)}`;
     return {
-      title: `${t.symbol}`,
-      link: `https://pump.fun/coin/${t.mint}`,
-      source: `${volStr} · ${t.trades} trades${mcapStr}`,
-      date: new Date(t.lastTrade),
+      title: `${c.symbol} — ${c.name}`,
+      link: `https://pump.fun/coin/${c.mint}`,
+      source: `${mcapStr} mcap`,
+      date: new Date(c.created_timestamp || Date.now()),
     };
   });
 }
@@ -496,17 +438,8 @@ async function loadPanel(panel) {
     }
 
     if (panel.special === 'pumpportal') {
-      initPumpPortalWS(); // idempotent — only connects once
-      const items = getPumpPortalItems();
-      if (items.length === 0 && pumpPortalState.connected) {
-        feedEl.innerHTML = '<div class="panel-loading"><span class="spinner"></span>Collecting trades...</div>';
-        countEl.textContent = '⚡';
-      } else if (items.length === 0) {
-        feedEl.innerHTML = '<div class="panel-loading"><span class="spinner"></span>Connecting to PumpPortal...</div>';
-        countEl.textContent = '—';
-      } else {
-        renderItems(items, feedEl, countEl, panel.id);
-      }
+      const items = await fetchPumpTopVolume();
+      renderItems(items, feedEl, countEl, panel.id);
       return;
     }
 
