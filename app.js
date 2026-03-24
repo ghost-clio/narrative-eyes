@@ -128,7 +128,7 @@ async function fetchGitHubTrending() {
     }
 
     // Filter: only show breakout projects (<20k total stars)
-    if (totalStars >= 20000) return;
+    if (totalStars >= 5000) return;
 
     items.push({
       title: repo,
