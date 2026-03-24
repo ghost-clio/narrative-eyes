@@ -27,7 +27,6 @@ body {
 
 html, body {
   height: 100%;
-  overflow: hidden;
 }
 
 header {
@@ -85,20 +84,17 @@ header {
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(45vh, auto));
   gap: 1px;
   background: var(--border);
-  height: calc(100vh - 49px);
-  overflow: hidden;
+  min-height: calc(100vh - 49px);
 }
 
 .panel {
   background: var(--panel-bg);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   min-height: 0;
-  max-height: 100%;
 }
 
 .panel-header {
