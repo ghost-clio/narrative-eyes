@@ -278,7 +278,7 @@ async function fetchPumpTopVolume() {
     coins = JSON.parse(proxied);
   }
 
-  return coins.map(c => {
+  return coins.map((c, i) => {
     const mcap = c.usd_market_cap || 0;
     const mcapStr = mcap >= 1000000 ? `$${(mcap/1000000).toFixed(1)}M` :
                     mcap >= 1000 ? `$${(mcap/1000).toFixed(0)}K` :
@@ -286,8 +286,8 @@ async function fetchPumpTopVolume() {
     return {
       title: `${c.symbol} — ${c.name}`,
       link: `https://pump.fun/coin/${c.mint}`,
-      source: `${mcapStr} mcap`,
-      date: new Date(c.created_timestamp || Date.now()),
+      source: `#${i+1} · ${mcapStr} mcap`,
+      date: new Date(), // use now — these are live top volume, not historical
     };
   });
 }
