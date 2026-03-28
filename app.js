@@ -70,6 +70,20 @@ const PANELS = [
     description: 'highest volume tokens on pump.fun right now'
   },
   {
+    id: 'weibo',
+    icon: '📰',
+    title: 'WEIBO HOT',
+    special: 'weibo',
+    description: 'china social trending — what 600M users are talking about'
+  },
+  {
+    id: 'bilibili',
+    icon: '📺',
+    title: 'BILIBILI TRENDING',
+    special: 'bilibili',
+    description: 'china youtube — what gen-z is watching'
+  },
+  {
     id: 'rising',
     icon: '⚡',
     title: 'RISING NOW',
@@ -266,6 +280,22 @@ async function fetchPolymarket() {
 }
 
 // Pump.fun — top volume tokens via REST API
+async function fetchJsonTrends(jsonPath, icon = '📰') {
+  try {
+    const resp = await fetch(jsonPath + '?t=' + Date.now());
+    const data = await resp.json();
+    return (data.trends || []).map(t => ({
+      title: `${icon} ${t.topic || t.topic_cn || ''}`,
+      source: t.source || t.context || '',
+      date: new Date(data.updated),
+      link: '',
+    }));
+  } catch(e) {
+    console.error(`Failed to fetch ${jsonPath}:`, e);
+    return [];
+  }
+}
+
 async function fetchPumpTopVolume() {
   // Fetch more to have enough after filtering
   const url = 'https://frontend-api-v3.pump.fun/coins/currently-live?limit=50&offset=0&sort=volume&order=DESC&includeNsfw=false';
@@ -504,6 +534,18 @@ async function loadPanel(panel) {
 
     if (panel.special === 'pumpportal') {
       const items = await fetchPumpTopVolume();
+      renderItems(items, feedEl, countEl, panel.id);
+      return;
+    }
+
+    if (panel.special === 'weibo') {
+      const items = await fetchJsonTrends('data/weibo-trends.json', '📰');
+      renderItems(items, feedEl, countEl, panel.id);
+      return;
+    }
+
+    if (panel.special === 'bilibili') {
+      const items = await fetchJsonTrends('data/bilibili-trends.json', '📺');
       renderItems(items, feedEl, countEl, panel.id);
       return;
     }

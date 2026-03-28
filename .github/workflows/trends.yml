@@ -13,10 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch Douyin trends
+      - name: Fetch trends (douyin + weibo + bilibili)
         run: |
           mkdir -p data
           python3 scripts/fetch-douyin.py
+          python3 scripts/fetch-weibo.py
+          python3 scripts/fetch-bilibili.py
 
       - name: Update X trends note
         run: |
