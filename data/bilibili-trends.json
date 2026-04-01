@@ -1,23 +1,23 @@
 {
-  "updated": "2026-04-01T12:04:01Z",
+  "updated": "2026-04-01T14:05:31Z",
   "trends": [
-    {
-      "topic": "被精心设计的内存涨价游戏",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "海空卫士王伟牺牲25周年",
-      "source": "bilibili",
-      "heat": 0
-    },
     {
       "topic": "张雪机车车手瓦伦丁的故事",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "笔吧评测室的百大纪录片",
+      "topic": "阿尔忒弥斯二号载人绕月任务前瞻",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "TES官宣上调二队上单ZUIAN",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "DRG  XLG",
       "source": "bilibili",
       "heat": 0
     },
@@ -32,22 +32,22 @@
       "heat": 0
     },
     {
-      "topic": "UP主用AI还原奶奶的笑脸",
+      "topic": "阿尔忒弥斯2号发射现场",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "Claude Code泄漏代码完整逆向",
+      "topic": "Claude Opus是否会淘汰程序员",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "原创不让你唱你唱不唱",
+      "topic": "医保基金监管新规开始施行",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "独立开发者的春天来了吗",
+      "topic": "被精心设计的内存涨价游戏",
       "source": "bilibili",
       "heat": 0
     },
@@ -67,12 +67,7 @@
       "heat": 0
     },
     {
-      "topic": "BLG先锋赛夺冠直播",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "粉底液将军为何会爆火",
+      "topic": "盘点何润东经典角色",
       "source": "bilibili",
       "heat": 0
     },
@@ -82,7 +77,17 @@
       "heat": 0
     },
     {
+      "topic": "Claude Code源码分析与复刻实现",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
       "topic": "UP主复现Claude Code代码漏洞",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "星布谷地明天二测招募",
       "source": "bilibili",
       "heat": 0
     },
@@ -92,12 +97,7 @@
       "heat": 0
     },
     {
-      "topic": "美联储主席在哈佛讲了什么",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "内存要降价了吗",
+      "topic": "从泄露源码扒出Claude隐藏彩蛋",
       "source": "bilibili",
       "heat": 0
     }
