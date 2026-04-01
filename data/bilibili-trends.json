@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-01T23:22:36Z",
+  "updated": "2026-04-01T23:57:32Z",
   "trends": [
     {
       "topic": "美国老百姓怎么看张雪机车夺冠",
@@ -17,12 +17,7 @@
       "heat": 0
     },
     {
-      "topic": "独立开发者的春天来了吗",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "医保基金监管新规开始施行",
+      "topic": "全美爆发游行是为了反战吗",
       "source": "bilibili",
       "heat": 0
     },
@@ -37,17 +32,22 @@
       "heat": 0
     },
     {
-      "topic": "全美爆发游行是为了反战吗",
+      "topic": "医保基金监管新规开始施行",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "玄界之门",
+      "topic": "独立开发者的春天来了吗",
       "source": "bilibili",
       "heat": 0
     },
     {
       "topic": "当下普通人如何投资理财",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "玄界之门",
       "source": "bilibili",
       "heat": 0
     },
@@ -67,12 +67,27 @@
       "heat": 0
     },
     {
+      "topic": "国际足联称伊朗将参加世界杯",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "Claude Opus是否会淘汰程序员",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
       "topic": "Claude Code源码分析与复刻实现",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "国际足联称伊朗将参加世界杯",
+      "topic": "UP主复现Claude Code代码漏洞",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "从泄露源码扒出Claude隐藏彩蛋",
       "source": "bilibili",
       "heat": 0
     },
@@ -83,21 +98,6 @@
     },
     {
       "topic": "海空卫士王伟牺牲25周年",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "Claude Opus是否会淘汰程序员",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "从泄露源码扒出Claude隐藏彩蛋",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "中国和巴基斯坦提出5点倡议",
       "source": "bilibili",
       "heat": 0
     }
