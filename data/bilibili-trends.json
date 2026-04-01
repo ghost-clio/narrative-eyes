@@ -1,8 +1,8 @@
 {
-  "updated": "2026-04-01T11:14:12Z",
+  "updated": "2026-04-01T12:04:01Z",
   "trends": [
     {
-      "topic": "KPL",
+      "topic": "被精心设计的内存涨价游戏",
       "source": "bilibili",
       "heat": 0
     },
@@ -17,7 +17,7 @@
       "heat": 0
     },
     {
-      "topic": "LCK核查ruler",
+      "topic": "笔吧评测室的百大纪录片",
       "source": "bilibili",
       "heat": 0
     },
@@ -32,27 +32,27 @@
       "heat": 0
     },
     {
-      "topic": "张雪机车火爆后的风险隐患",
+      "topic": "UP主用AI还原奶奶的笑脸",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "UP主复现Claude Code代码漏洞",
+      "topic": "Claude Code泄漏代码完整逆向",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "BLG先锋赛夺冠直播",
+      "topic": "原创不让你唱你唱不唱",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "太阳能量子产率突破物理极限",
+      "topic": "独立开发者的春天来了吗",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "整个B站都变绿了",
+      "topic": "KPL",
       "source": "bilibili",
       "heat": 0
     },
@@ -67,27 +67,12 @@
       "heat": 0
     },
     {
-      "topic": "独立开发者的春天来了吗",
+      "topic": "BLG先锋赛夺冠直播",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "三角洲愚人节上线生化模式",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "内存要降价了吗",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "国足0比2喀麦隆",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "郑丽文访问大陆透露哪些信号",
+      "topic": "粉底液将军为何会爆火",
       "source": "bilibili",
       "heat": 0
     },
@@ -97,7 +82,22 @@
       "heat": 0
     },
     {
+      "topic": "UP主复现Claude Code代码漏洞",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "国足0比2喀麦隆",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
       "topic": "美联储主席在哈佛讲了什么",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "内存要降价了吗",
       "source": "bilibili",
       "heat": 0
     }
