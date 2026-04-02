@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-02T16:30:59Z",
+  "updated": "2026-04-02T17:35:33Z",
   "trends": [
     {
       "topic": "BLG TYL",
@@ -57,17 +57,22 @@
       "heat": 0
     },
     {
-      "topic": "CS2职业比赛有多抽象",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "雪山救狐最科幻的一集",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "小龙虾代打植物大战僵尸",
+      "topic": "CS2职业比赛有多抽象",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "Rickroll但是崩铁",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "逐玉争议全盘点",
       "source": "bilibili",
       "heat": 0
     },
@@ -82,22 +87,17 @@
       "heat": 0
     },
     {
-      "topic": "商务部回应Meta收购Manus",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "UP主复现Claude Code代码漏洞",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "国际足联称伊朗将参加世界杯",
+      "topic": "Claude Code源码分析与复刻实现",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "Claude Code源码分析与复刻实现",
+      "topic": "粉底液将军为何会爆火",
       "source": "bilibili",
       "heat": 0
     }
