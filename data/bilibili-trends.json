@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-05T16:54:16Z",
+  "updated": "2026-04-05T17:35:03Z",
   "trends": [
     {
       "topic": "AL TES",
@@ -12,32 +12,17 @@
       "heat": 0
     },
     {
-      "topic": "成都AG超玩会 KSG",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "王楚钦首夺世界杯单打冠军",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "BLG JDG",
+      "topic": "成都AG超玩会 KSG",
       "source": "bilibili",
       "heat": 0
     },
     {
       "topic": "世界周刊之要大炮还是黄油",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "上学你要来学校MV",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "世界周刊之夹缝中的海湾盟友",
       "source": "bilibili",
       "heat": 0
     },
@@ -52,6 +37,26 @@
       "heat": 0
     },
     {
+      "topic": "歌剧老师锐评浪姐舞台",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "世界周刊之夹缝中的海湾盟友",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "锐评TES战胜AL",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "伊朗发布被击落美军机画面",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
       "topic": "详解新修订殡葬管理条例",
       "source": "bilibili",
       "heat": 0
@@ -62,7 +67,7 @@
       "heat": 0
     },
     {
-      "topic": "Claude禁止OpenClaw接入",
+      "topic": "BLG JDG",
       "source": "bilibili",
       "heat": 0
     },
@@ -72,7 +77,7 @@
       "heat": 0
     },
     {
-      "topic": "伊朗发布被击落美军机画面",
+      "topic": "Claude禁止OpenClaw接入",
       "source": "bilibili",
       "heat": 0
     },
@@ -92,12 +97,7 @@
       "heat": 0
     },
     {
-      "topic": "弗拉格能拿到最佳新秀吗",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "陈瑶浪姐恋爱告急好甜",
+      "topic": "上学你要来学校MV",
       "source": "bilibili",
       "heat": 0
     }
