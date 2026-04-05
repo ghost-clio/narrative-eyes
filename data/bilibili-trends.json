@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-05T17:35:03Z",
+  "updated": "2026-04-05T18:03:17Z",
   "trends": [
     {
       "topic": "AL TES",
@@ -27,12 +27,17 @@
       "heat": 0
     },
     {
-      "topic": "跟着UP主清明逛信阳",
+      "topic": "上学你要来学校MV",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "BLG战胜JDG赛后数据",
+      "topic": "TES战胜AL赛后数据",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "跟着UP主清明逛信阳",
       "source": "bilibili",
       "heat": 0
     },
@@ -42,12 +47,17 @@
       "heat": 0
     },
     {
-      "topic": "世界周刊之夹缝中的海湾盟友",
+      "topic": "BLG战胜JDG赛后数据",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "锐评TES战胜AL",
+      "topic": "锐评BLG战胜JDG",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "BLG JDG",
       "source": "bilibili",
       "heat": 0
     },
@@ -67,11 +77,6 @@
       "heat": 0
     },
     {
-      "topic": "BLG JDG",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "中国新一代电磁枪威力有多强",
       "source": "bilibili",
       "heat": 0
@@ -87,17 +92,12 @@
       "heat": 0
     },
     {
-      "topic": "曾沛慈一开口青春回来了",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "燕双鹰vs全明星",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "上学你要来学校MV",
+      "topic": "曾沛慈一开口青春回来了",
       "source": "bilibili",
       "heat": 0
     }
