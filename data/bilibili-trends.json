@@ -1,23 +1,18 @@
 {
-  "updated": "2026-04-05T02:46:43Z",
+  "updated": "2026-04-05T05:15:18Z",
   "trends": [
+    {
+      "topic": "牧神记",
+      "source": "bilibili",
+      "heat": 0
+    },
     {
       "topic": "锐评T1战胜HLE",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "央视新闻2026清明特别节目",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "燕双鹰vs全明星",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "UP结合自身经历做清明AI短片",
+      "topic": "当UP主用爱豆的方式打开时装周",
       "source": "bilibili",
       "heat": 0
     },
@@ -27,12 +22,22 @@
       "heat": 0
     },
     {
-      "topic": "阿森纳止步足总杯八强",
+      "topic": "从寻梦环游记谈死亡教育",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "复盘王楚钦逆转达科",
+      "topic": "美方称失踪美军飞行员被找到",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "澳门世界杯",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "中锋大战掘金胜马刺",
       "source": "bilibili",
       "heat": 0
     },
@@ -42,17 +47,7 @@
       "heat": 0
     },
     {
-      "topic": "乘风2026初舞台全程回顾",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "探访太平年中提及的两处墓地",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "里夫斯预计缺席4到6周",
+      "topic": "兆瓦级氢燃料航空涡桨发动机首飞成功",
       "source": "bilibili",
       "heat": 0
     },
@@ -87,17 +82,22 @@
       "heat": 0
     },
     {
-      "topic": "凡人修仙传年番定档0613",
+      "topic": "食贫道缅怀驻南联盟使馆烈士",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "浪姐乐子盘点",
+      "topic": "UP主花1000美金在美国学Rap",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "TES IG",
+      "topic": "原神莉奈娅测评",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "三角洲新侦查干员回响测评",
       "source": "bilibili",
       "heat": 0
     }
