@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-05T06:43:01Z",
+  "updated": "2026-04-05T07:42:33Z",
   "trends": [
     {
       "topic": "牧神记",
@@ -12,7 +12,17 @@
       "heat": 0
     },
     {
-      "topic": "澳门世界杯",
+      "topic": "BLG vs JDG数据前瞻",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "s1mple独木难支不敌蒙古",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "重读人民英雄纪念碑碑文",
       "source": "bilibili",
       "heat": 0
     },
@@ -22,27 +32,7 @@
       "heat": 0
     },
     {
-      "topic": "清明节亲子共制青团",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "美方称失踪美军飞行员被找到",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "揭秘假洋牌背后流水线",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "锐评阿森纳足总杯遭英冠淘汰",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "UP主成功追星江语晨",
+      "topic": "最不想火鸡煲店背后的故事",
       "source": "bilibili",
       "heat": 0
     },
@@ -52,32 +42,12 @@
       "heat": 0
     },
     {
-      "topic": "燕双鹰vs全明星",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "徐静雨谈洛克王国世界",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "苏见信死了都要爱高音天花板",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
-      "topic": "天堂超市",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "当UP主用爱豆的方式打开时装周",
       "source": "bilibili",
       "heat": 0
     },
     {
-      "topic": "伊朗称击中美军A10攻击机",
+      "topic": "锐评阿森纳足总杯遭英冠淘汰",
       "source": "bilibili",
       "heat": 0
     },
@@ -87,17 +57,47 @@
       "heat": 0
     },
     {
-      "topic": "Claude禁止OpenClaw接入",
-      "source": "bilibili",
-      "heat": 0
-    },
-    {
       "topic": "Space X并购xAI目的何在",
       "source": "bilibili",
       "heat": 0
     },
     {
+      "topic": "Claude禁止OpenClaw接入",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
       "topic": "中国新一代电磁枪威力有多强",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "王楚钦",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "一个视频看懂天龙三号火箭",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "中锋大战掘金胜马刺",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "是班中王来了",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "巴萨2-1逆转十人马竞",
+      "source": "bilibili",
+      "heat": 0
+    },
+    {
+      "topic": "浪姐乐子盘点",
       "source": "bilibili",
       "heat": 0
     }
